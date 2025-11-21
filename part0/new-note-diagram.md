@@ -1,16 +1,26 @@
+```mermaid
 sequenceDiagram
     participant browser
     participant server
 
+    Note left of browser: Based on the form action, data is POST to /new_note
+
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_notes
+
+    Note right of server: The API return with a redirection
+    Note left of browser: Browser acknowledge the redirection back to /notes
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
     server-->>browser: HTML document
     deactivate server
 
+    Note left of browser: The HTML <head> contain <link> and <script> caused the browser download the main.css and main.js file from the server.
+
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
     server-->>browser: the css file
-    deactivate server
+    deactivate server    
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
     activate server
@@ -25,3 +35,4 @@ sequenceDiagram
     deactivate server
 
     Note right of browser: The browser executes the callback function that renders the notes
+```
