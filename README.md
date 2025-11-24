@@ -6,7 +6,7 @@ This course serves as an introduction to modern web application development with
 | Part| Exercises           |
 | --- |  ------------------ |
 | 0   | 6/6                 |
-| 1   | WIP                 |
+| 1   | 14/14               |
 | 2   |  WIP                |
 | 3   |  WIP                |
 | 4   | WIP                 |
