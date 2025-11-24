@@ -1,0 +1,1 @@
+Exercise part 1.1-1.5 for the Full Stack Open Courses
