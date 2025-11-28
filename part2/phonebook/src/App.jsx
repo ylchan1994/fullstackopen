@@ -78,15 +78,6 @@ const errorStyle = {
 }
 
 const App = () => {
-
-  useEffect(() => {
-    phoneBookServices
-      .getAll()
-      .then(persons => {
-        setPersons(persons)
-      })
-  }, [])
-
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
@@ -95,6 +86,14 @@ const App = () => {
     message: '',
     style: '',
   })
+
+  useEffect(() => {
+    phoneBookServices
+      .getAll()
+      .then(persons => {
+        setPersons(persons)
+      })
+  }, [])
 
   const filteredList = persons?.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
 
@@ -130,10 +129,18 @@ const App = () => {
         .catch(error => {
           if (error.response.status == 404) {
             setFloatingMessage({ message: `Information of ${newName} has already been removed from server`, style: errorStyle })
-            setTimeout(() => {
-              setFloatingMessage({ message: '', style: '', })
-            }, 5000)
+
           }
+
+          if (error.response.status == 400) {
+            console.log(error.response.data)
+            setFloatingMessage({ message: error.response.data.error, style: errorStyle })
+          }
+
+          setTimeout(() => {
+            setFloatingMessage({ message: '', style: '', })
+          }, 5000)
+
         })
 
       return
@@ -147,6 +154,15 @@ const App = () => {
         setTimeout(() => {
           setFloatingMessage({ message: '', style: '', })
         }, 5000)
+      })
+      .catch(error => {
+        if (error.response.status == 400) {
+          console.log(error.response.data)
+          setFloatingMessage({ message: error.response.data.error, style: errorStyle })
+          setTimeout(() => {
+            setFloatingMessage({ message: '', style: '', })
+          }, 5000)
+        }
       })
   }
 
