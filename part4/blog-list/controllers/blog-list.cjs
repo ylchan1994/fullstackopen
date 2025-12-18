@@ -12,7 +12,7 @@ blogRouter.post('/', async (request, response) => {
   const { title, url } = request.body
   const transformedRequest = request.body
 
-  transformedRequest.id = request.user.toString()
+  transformedRequest.user = request.user.toString()
 
   if (!title || !url) return response.status(400).json({ error: 'Title or URL is missing' })
 
@@ -46,8 +46,8 @@ blogRouter.delete('/:id', async (request, response) => {
   const found = await Blog.findById(id)
 
   if (!found) return response.status(404).end()
-
-  if (found.user.toString() !== request.user) return response.status(403).json({ error: 'User does not have permission to delete this blog' })
+  console.log(found)
+  if (found.user?.toString() !== request.user) return response.status(403).json({ error: 'User does not have permission to delete this blog' })
 
   const afterDelete = await Blog.deleteOne({ _id: id })
   if (afterDelete.deletedCount !== 1) return response.status(404).end()

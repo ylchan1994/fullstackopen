@@ -32,7 +32,6 @@ const errorHandler = (error, request, response, next) => {
 }
 
 const tokenExtractor = async (request, response, next) => {
-  console.log(request.method, request.method === 'GET', request.path, request.path === '/')
   if (request.method === 'GET' && request.path === '/') return next()
   let token = request.get('authorization')
   if (token && token.startsWith('Bearer ')) {
@@ -55,10 +54,27 @@ const userExtractor = async (request, response, next) => {
   next()
 }
 
+const responseLogger = (req, res, next) => {
+
+  res.on('finish', () => {
+    const { method, originalUrl } = req
+    const status = res.statusCode
+
+    logger.info('Method:', method)
+    logger.info('Path:  ', originalUrl)
+    logger.info('Status:  ', status)
+    logger.info('---')
+    next()
+  })
+
+  next()
+}
+
 module.exports = {
   requestLogger,
   unknownEndpoint,
   errorHandler,
   userExtractor,
-  tokenExtractor
+  tokenExtractor,
+  responseLogger
 }
