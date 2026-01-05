@@ -1,0 +1,65 @@
+# @name login
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+    "username": "root",
+    "password": "salainen"
+}
+
+###
+@token = {{login.response.body.token}}
+GET http://localhost:3001/api/blog-list
+
+###
+POST http://localhost:3001/api/blog-list
+content-type: application/json
+authorization: Bearer {{token}}
+
+{
+  "title": "Shawshank Redemption",
+  "author": "Steven Spielberg",
+  "url": "https://imdb.com/shawshank-redemption",
+  "user": "692e7ff308969e8b36be2ba0"
+}
+
+###
+DELETE http://localhost:3001/api/blog-list/
+content-type: application/json
+authorization: Bearer {{token}}
+
+###
+PUT http://localhost:3001/api/blog-list/692e96f2625384fe1685cb93
+content-type: application/json
+authorization: Bearer {{token}}
+
+{
+  "likes": 23
+}
+
+###
+GET http://localhost:3001/api/users
+authorization: Bearer {{token}}
+
+###
+POST http://localhost:3001/api/users
+content-type: application/json
+authorization: Bearer {{token}}
+
+{
+    "username": "root",
+    "name": "Superuser",
+    "password": "salainen"
+}
+
+###
+POST http://localhost:3001/api/users
+content-type: application/json
+authorization: Bearer {{token}}
+
+{
+    "username": "root",
+    "name": "Superuser",
+    "password": "23"
+}
+
