@@ -3,20 +3,19 @@ This course serves as an introduction to modern web application development with
 
 ## Exercises
 
-| Part| Exercises           |
-| --- |  ------------------ |
-| 0   | 6/6                 |
-| 1   | 14/14               |
-| 2   | 19/20               |
-| 3   | 22/22               |
-| 4   | 23/23               |
-| 5   | 23/23               |
-| 6   | 24/24               |
-| 7   | 8/21                |
-| 8   |  WIP                |
-| 9   |WIP                  |
-| 10  | WIP                 |
-| 11  | WIP                 |
-| 12  |  WIP                |
-| 13  | WIP                 |
-
+| Part | Exercises |
+| ---- | --------- |
+| 0    | 6/6       |
+| 1    | 14/14     |
+| 2    | 19/20     |
+| 3    | 22/22     |
+| 4    | 23/23     |
+| 5    | 23/23     |
+| 6    | 24/24     |
+| 7    | 21/21     |
+| 8    | WIP       |
+| 9    | WIP       |
+| 10   | WIP       |
+| 11   | WIP       |
+| 12   | WIP       |
+| 13   | WIP       |

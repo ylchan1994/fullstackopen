@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
-const { MONGO_URI } = require('../utils/config.cjs')
+const mongoose = require("mongoose");
+const { MONGO_URI } = require("../utils/config.cjs");
 
-const mongoUrl = MONGO_URI
+const mongoUrl = MONGO_URI;
 
-mongoose.set('strictQuery', false)
+mongoose.set("strictQuery", false);
 
 const blogSchema = mongoose.Schema({
   title: String,
@@ -12,20 +12,24 @@ const blogSchema = mongoose.Schema({
   likes: Number,
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }
-})
+    ref: "User",
+  },
+  comments: {
+    type: [String],
+    default: undefined,
+  },
+});
 
-blogSchema.set('toJSON', {
+blogSchema.set("toJSON", {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
-})
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
 
-const Blog = mongoose.model('Blog', blogSchema)
+const Blog = mongoose.model("Blog", blogSchema);
 
-mongoose.connect(mongoUrl, { family: 4 })
+mongoose.connect(mongoUrl, { family: 4 });
 
-module.exports = Blog
+module.exports = Blog;

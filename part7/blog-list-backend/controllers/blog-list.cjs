@@ -1,57 +1,65 @@
-const blogRouter = require('express').Router()
-const Blog = require('../models/blog-list.cjs')
+const blogRouter = require("express").Router();
+const Blog = require("../models/blog-list.cjs");
 
-blogRouter.get('/', async (request, response) => {
-  const blogs = await Blog
-    .find({})
-    .populate('user', { username: 1, name: 1 })
-  response.json(blogs)
-})
+blogRouter.get("/", async (request, response) => {
+  const blogs = await Blog.find({}).populate("user", { username: 1, name: 1 });
+  response.json(blogs);
+  return;
+});
 
-blogRouter.post('/', async (request, response) => {
-  const { title, url } = request.body
-  const transformedRequest = request.body
+blogRouter.post("/", async (request, response) => {
+  const { title, url } = request.body;
+  const transformedRequest = request.body;
 
-  transformedRequest.user = request.user.toString()
+  transformedRequest.user = request.user.toString();
 
-  if (!title || !url) return response.status(400).json({ error: 'Title or URL is missing' })
+  if (!title || !url)
+    return response.status(400).json({ error: "Title or URL is missing" });
 
-  if (!transformedRequest.likes) transformedRequest.likes = 0
-  const blog = new Blog(transformedRequest)
+  if (!transformedRequest.likes) transformedRequest.likes = 0;
+  const blog = new Blog(transformedRequest);
 
-  const result = await blog.save()
+  const result = await blog.save();
 
-  await result.populate('user', { username: 1, name: 1 })
-  response.status(201).json(result)
-})
+  await result.populate("user", { username: 1, name: 1 });
+  response.status(201).json(result);
+});
 
-blogRouter.put('/:id', async (request, response) => {
-  const id = request.params.id
-  const likes = request.body?.likes
+blogRouter.put("/:id", async (request, response) => {
+  const id = request.params.id;
+  const likes = request.body?.likes;
+  const comment = request.body?.comment;
 
-  if (!likes) return response.status(400).json({ error: 'Unable to update due to missing likes' })
+  if (!likes && !comment)
+    return response
+      .status(400)
+      .json({ error: "Unable to update due to missing likes or comments" });
 
-  const found = await Blog.findById(id)
-  if (!found) return response.status(404).json({ error: 'Blog id not found' })
+  const found = await Blog.findById(id);
+  if (!found) return response.status(404).json({ error: "Blog id not found" });
 
-  found.likes = likes
+  found.likes = likes ?? found.likes;
+  found.comments = comment ? (found.comments || []).concat(comment) : undefined;
 
-  const updatedBlog = await found.save()
-  await updatedBlog.populate('user', { username: 1, name: 1 })
-  response.status(200).json(updatedBlog)
-})
+  const updatedBlog = await found.save();
+  await updatedBlog.populate("user", { username: 1, name: 1 });
+  response.status(200).json(updatedBlog);
+});
 
-blogRouter.delete('/:id', async (request, response) => {
-  const id = request.params.id
-  const found = await Blog.findById(id)
+blogRouter.delete("/:id", async (request, response) => {
+  const id = request.params.id;
+  const found = await Blog.findById(id);
 
-  if (!found) return response.status(404).end()
-  console.log(found)
-  if (found.user?.toString() !== request.user) return response.status(403).json({ error: 'User does not have permission to delete this blog' })
+  if (!found) return response.status(404).end();
+  console.log(found);
+  if (found.user?.toString() !== request.user)
+    return response
+      .status(403)
+      .json({ error: "User does not have permission to delete this blog" });
 
-  const afterDelete = await Blog.deleteOne({ _id: id })
-  if (afterDelete.deletedCount !== 1) return response.status(404).end()
-  response.status(204).end()
-})
+  const afterDelete = await Blog.deleteOne({ _id: id });
+  if (afterDelete.deletedCount !== 1) return response.status(404).end();
+  response.status(204).end();
+});
 
-module.exports = blogRouter
+module.exports = blogRouter;
