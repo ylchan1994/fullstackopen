@@ -13,7 +13,7 @@ This course serves as an introduction to modern web application development with
 | 5    | 23/23     |
 | 6    | 24/24     |
 | 7    | 21/21     |
-| 8    | WIP       |
+| 8    | 22/26     |
 | 9    | WIP       |
 | 10   | WIP       |
 | 11   | WIP       |

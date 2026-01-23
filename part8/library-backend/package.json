@@ -1,0 +1,24 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "description": "GraphQL practice",
+  "keywords": [
+    "GraphQL"
+  ],
+  "license": "ISC",
+  "author": "Chan YL",
+  "type": "commonjs",
+  "main": "index.cjs",
+  "scripts": {
+    "start": "node index.cjs",
+    "dev": "node --watch index.cjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.2.0",
+    "dotenv": "^17.2.3",
+    "graphql": "^16.12.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.2"
+  }
+}
