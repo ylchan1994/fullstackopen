@@ -1,0 +1,36 @@
+{
+  "name": "part9",
+  "version": "1.0.0",
+  "description": "Fullstack Open part 9",
+  "license": "ISC",
+  "author": "Chan YL",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
+    "ts-node": "ts-node",
+    "calculateBmi": "ts-node bmiCalculator.ts",
+    "calculateExercises": "ts-node exerciseCalculator.ts",
+    "start": "ts-node index.ts",
+    "dev": "ts-node-dev index.ts",
+    "lint": "eslint"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@stylistic/eslint-plugin": "^5.7.0",
+    "@types/cors": "^2.8.19",
+    "@types/eslint__js": "^8.42.3",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.10",
+    "eslint": "^9.39.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "uuid": "^13.0.0",
+    "zod": "^4.3.6"
+  }
+}
